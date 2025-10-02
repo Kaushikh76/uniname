@@ -116,7 +116,7 @@ export default function Home() {
       <div className="fixed bottom-4 right-4 flex items-center gap-3">
         <span className="text-sm">powered by doma.xyz</span>
         <a
-          href="https://x.com/doma_xyz"
+          href="https://x.com/uniname_fun"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:opacity-70 transition-opacity"
