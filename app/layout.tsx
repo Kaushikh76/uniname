@@ -6,9 +6,9 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "uniname - domain analysis",
-  description: "brutalist domain analysis tool",
-  generator: "v0.app",
+  title: "uniname",
+  description: "Domain analyis",
+  
 }
 
 export default function RootLayout({

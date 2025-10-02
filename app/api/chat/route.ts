@@ -1,18 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
-  const apiBaseUrl = process.env.API_BASE_URL
-
-  if (!apiBaseUrl) {
-    console.error("NEXT_PUBLIC_API_BASE_URL is not defined")
-    return NextResponse.json({ error: "server configuration error" }, { status: 500 })
-  }
-
   try {
     const body = await request.json()
     const { sessionId, message } = body
 
-    const response = await fetch(`${apiBaseUrl}/api/chat/${sessionId}`, {
+    const response = await fetch(`http://68.233.112.221:8080/api/chat/${sessionId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

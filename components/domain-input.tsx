@@ -27,7 +27,7 @@ export function DomainInput({ onSubmit, isLoading }: DomainInputProps) {
         <div className="w-full space-y-4">
           <div className="space-y-2">
             <p className="text-sm text-muted-foreground">enter domain name</p>
-            <p className="text-xs text-muted-foreground">(e.g., v0.com or google.com)</p>
+            <p className="text-xs text-muted-foreground">(e.g., perplexity.ai or crypto.com)</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

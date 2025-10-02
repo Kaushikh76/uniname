@@ -5,14 +5,15 @@ interface SeoMetricsProps {
 export function SeoMetrics({ seoData }: SeoMetricsProps) {
   console.log("[v0] SEO Data received:", seoData)
   console.log("[v0] Keywords object:", seoData?.keywords)
-  console.log("[v0] Ranked Keywords:", seoData?.keywords?.rankedKeywords)
-  console.log("[v0] Related Keywords:", seoData?.keywords?.relatedKeywords)
-  console.log("[v0] Metrics object:", seoData?.metrics)
+  console.log("[v0] Related Keywords full object:", seoData?.keywords?.relatedKeywords)
+  console.log("[v0] Related Keywords array:", seoData?.keywords?.relatedKeywords?.relatedKeywords)
   console.log("[v0] Whois object:", seoData?.whois)
+  console.log("[v0] Whois metrics:", seoData?.whois?.metrics)
 
   if (!seoData) return null
 
-  const { keywords, whois, metrics } = seoData
+  const { keywords, whois } = seoData
+  const metrics = whois?.metrics
 
   return (
     <div className="space-y-4">
@@ -68,7 +69,7 @@ export function SeoMetrics({ seoData }: SeoMetricsProps) {
         </div>
       )}
 
-      {(keywords?.rankedKeywords?.keywords?.length > 0 || keywords?.relatedKeywords?.length > 0) && (
+      {(keywords?.rankedKeywords?.keywords?.length > 0 || keywords?.relatedKeywords?.relatedKeywords?.length > 0) && (
         <div className="border-4 border-foreground p-6 space-y-6">
           <h3 className="text-lg font-bold">keywords</h3>
 
@@ -76,7 +77,9 @@ export function SeoMetrics({ seoData }: SeoMetricsProps) {
             {/* Top Keywords */}
             {keywords?.rankedKeywords?.keywords?.length > 0 && (
               <div className="space-y-3">
-                <h4 className="font-bold text-sm border-b-2 border-foreground pb-2">top ranked (5)</h4>
+                <h4 className="font-bold text-sm border-b-2 border-foreground pb-2">
+                  top ranked ({keywords.rankedKeywords.keywords.slice(0, 5).length})
+                </h4>
                 <div className="space-y-2">
                   {keywords.rankedKeywords.keywords.slice(0, 5).map((kw: any, index: number) => (
                     <div key={index} className="border-2 border-foreground p-3 bg-background">
@@ -98,11 +101,18 @@ export function SeoMetrics({ seoData }: SeoMetricsProps) {
               </div>
             )}
 
-            {keywords?.relatedKeywords?.length > 0 && (
+            {keywords?.relatedKeywords?.relatedKeywords?.length > 0 && (
               <div className="space-y-3">
-                <h4 className="font-bold text-sm border-b-2 border-foreground pb-2">related (5)</h4>
+                <h4 className="font-bold text-sm border-b-2 border-foreground pb-2">
+                  related ({keywords.relatedKeywords.relatedKeywords.slice(0, 5).length})
+                  {keywords.relatedKeywords.seedKeyword && (
+                    <span className="text-xs text-muted-foreground ml-2">
+                      seed: {keywords.relatedKeywords.seedKeyword}
+                    </span>
+                  )}
+                </h4>
                 <div className="space-y-2">
-                  {keywords.relatedKeywords.slice(0, 5).map((kw: any, index: number) => (
+                  {keywords.relatedKeywords.relatedKeywords.slice(0, 5).map((kw: any, index: number) => (
                     <div key={index} className="border-2 border-foreground p-3 bg-background">
                       <div className="space-y-2 text-sm">
                         <div className="font-bold font-mono">{kw.keyword}</div>
